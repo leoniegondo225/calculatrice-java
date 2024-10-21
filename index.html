@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./vendors/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>calculatrice</title>
+</head>
+
+<body>
+    <section class="w-100 h-100 fw-bold d-flex justify-content-center align-content-center pt-5 ">
+        <div class="form d-flex flex-column  rounded-2 bg-info shadow">
+            <div class=" d-flex w- h-100 mb-3 rounded-4 border-0 ecran  " >
+                <input type="text" class="form-control p-4 d-block" disabled>
+            </div>
+            <div class="clavier d-grid ">
+                <button class="btn btn-light text-dark "  data-key="53">(</button>
+                <button class="btn btn-light text-dark "  data-key="219">)</button>
+                <button class="btn btn-light text-dark "  data-key="8">C</button>
+                <button class="btn btn-light text-dark "  data-key="111">/</button>
+                <button class="btn btn-light text-dark"  data-key="103">7</button>
+                <button class="btn btn-light text-dark"  data-key="104">8</button>
+                <button class="btn btn-light text-dark"  data-key="105">9</button>
+                <button class="btn btn-light text-dark"  data-key="106">*</button>
+                <button class="btn btn-light text-dark"  data-key="100">4</button>
+                <button class="btn btn-light text-dark"  data-key="101">5</button>
+                <button class="btn btn-light text-dark"  data-key="102">6</button>
+                <button class="btn btn-light text-dark"  data-key="109">-</button>
+                <button class="btn btn-light text-dark"  data-key="97">1</button>
+                <button class="btn btn-light text-dark"  data-key="98">2</button>
+                <button class="btn btn-light text-dark"  data-key="99">3</button>
+                <button class="btn btn-light text-dark"  data-key="107">+</button>
+                <button class="btn btn-light text-dark"  data-key="96">0</button>
+                <button class="btn btn-light text-dark"  data-key="110">.</button>
+                <button class="btn btn-light text-dark"  data-key="192">%</button>
+                <button class="btn btn-warning text-light"  data-key="187">=</button>
+            </div>
+        </div>
+        <div></div>
+    </section>
+
+
+    <script>
+        const clavier = [...document.querySelectorAll('.btn')] ;
+        //console.log (clavier)
+        const listekeycode = clavier.map(clavier => clavier.dataset.key );
+        //console.log(listekeyCode)
+        const ecran = document.querySelector('.ecran');
+
+
+        document.addEventListener('keydowm', (e) => {
+            const valeur = e.keyCode.toString(); 
+            //console.log(valeur, typeof valeur)
+            calculer(valeur)
+        }  )
+
+        document.addEventListener('click', (e) => {
+            //console.log(e)
+            const valeur = e.target.dataset.key;
+            //console.log(valeur, typeof valeur)
+            calculer(valeur)
+        })
+
+        const calculer = (valeur) => {
+            if (listekeycode.includes(valeur)) {
+            //console.log(listekeyCode)
+            switch (valeur) {
+                case '8':
+                ecran.textContent = "";
+                break;
+                case '13':
+                    const calcul = eval(ecran.textContent);
+                    ecran.textContent = calcul;
+                    break;
+                    default:
+                        const indexkeycode = listekeyCode.indexOf(valeur);
+                        const clavier = clavier[indexkeycode];
+                        ecran.textContent += clavier.innerHTML;
+            }
+            }
+        }
+
+        window.addEventListener('error', (e) => {
+            alert ('Une erreur est survenu dans votre calcul : ' + e.message )
+        })
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
